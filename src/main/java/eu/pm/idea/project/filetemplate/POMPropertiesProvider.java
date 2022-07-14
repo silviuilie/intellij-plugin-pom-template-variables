@@ -45,7 +45,6 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
                 var psiFile = PsiManager.getInstance(project).findFile(vfile);
                 XmlFile asXMLFile = (XmlFile) psiFile;
 
-                //, TODO : fix NPE below
                   DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
                 //   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
 
