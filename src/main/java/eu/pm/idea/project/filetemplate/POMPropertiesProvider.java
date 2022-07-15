@@ -26,16 +26,29 @@ import java.util.Properties;
  **/
 public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider {
 
-    private static final String DEFAULT_VALUE = "unknown";
+    private static final String UNKNOWN_VALUE = "unknown";
+
+    private static final String VERSION_VAR_NAME = "CURRENT_VERSION";
+
+    private String versionVarName = VERSION_VAR_NAME;
+
+    private static final String ARTIFACT_VAR_NAME = "ARTIFACT_ID";
+
+    private String artifactId = ARTIFACT_VAR_NAME;
+
 
     @Override
     public void fillProperties(@NotNull PsiDirectory psiDirectory, @NotNull Properties properties) {
 
-        var candidateVersion = DEFAULT_VALUE;
-
         final Project project = psiDirectory.getProject();
-
         DomManager domManager = DomManager.getDomManager(project);
+
+        setVersion(properties, project, domManager);
+
+    }
+
+    private void setVersion(@NotNull Properties properties, Project project, DomManager domManager) {
+        String candidateVersion = UNKNOWN_VALUE;
         ProjectScopeImpl scope = new ProjectScopeImpl(project, FileIndexFacade.getInstance(domManager.getProject()));
         Collection<VirtualFile> virtualFiles = FilenameIndex.getVirtualFilesByName("pom.xml", scope);
 
@@ -45,7 +58,7 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
                 var psiFile = PsiManager.getInstance(project).findFile(vfile);
                 XmlFile asXMLFile = (XmlFile) psiFile;
 
-                  DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
+                DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
                 //   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
 
                 POMProject pomProject = (POMProject) domFileElement.getRootElement();
@@ -54,7 +67,16 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
                 logger.error("failed to get version with : " + e.getMessage(), e);
             }
         }
-        properties.put("CURRENT_VERSION", candidateVersion);
+        properties.put(this.versionVarName, candidateVersion);
+        properties.put(this.artifactId, artifactId);
+    }
+
+    public void setVersionVarName(String versionVarName) {
+        this.versionVarName = versionVarName;
+    }
+
+    public void setArtifactId(String artifactId) {
+        this.artifactId = artifactId;
     }
 
     private static final Logger logger = Logger.getInstance("#eu.pm.idea.project.filetemplate.POMPropertiesProvider");

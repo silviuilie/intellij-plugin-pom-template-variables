@@ -29,6 +29,9 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <defaultTemplatePropertiesProvider implementation="eu.pm.idea.project.filetemplate.POMPropertiesProvider"/>
+
         <dom.fileMetaData implementation="eu.pm.idea.project.maven.POMDomFileDescription" rootTagName="project"/>
+
+        <projectConfigurable instance="eu.pm.idea.project.configuration.POMTemplateVariablesConfigurable"/>
     </extensions>
 </idea-plugin>
