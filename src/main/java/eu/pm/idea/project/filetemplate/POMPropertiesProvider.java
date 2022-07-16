@@ -56,8 +56,8 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
                 var psiFile = PsiManager.getInstance(project).findFile(vfile);
                 XmlFile asXMLFile = (XmlFile) psiFile;
 
-                    //   DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
-                   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
+                       DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
+//                   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
 
                 POMProject pomProject = (POMProject) domFileElement.getRootElement();
                 candidateVersion = pomProject.getVersion() != null ? pomProject.getVersion().getValue() : "unknown";
