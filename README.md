@@ -6,7 +6,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 
 
 
-###### sample java doc class/interface header template usage :
+###### sample usage on java doc class/interface header template :
  
     * ..
     * @since ${CURRENT_VERSION}
