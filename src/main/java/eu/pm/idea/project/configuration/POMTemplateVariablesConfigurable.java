@@ -17,7 +17,7 @@ import javax.swing.*;
 public class POMTemplateVariablesConfigurable implements Configurable.NoScroll, Configurable {
 
     private final Project project;
-    private ConfigurationComponent configuration;
+    private ConfigurationComponent uiConfiguration;
 
     public POMTemplateVariablesConfigurable(Project project) {
         this.project = project;
@@ -25,23 +25,43 @@ public class POMTemplateVariablesConfigurable implements Configurable.NoScroll, 
 
     @Override
     public @NlsContexts.ConfigurableName String getDisplayName() {
-        return "project template variables";
+        return "Build Tool Template Variables";
     }
 
     @Override
     public @Nullable JComponent createComponent() {
-        configuration = new ConfigurationComponent(project);
-        return configuration.getMain();
+        uiConfiguration = new ConfigurationComponent(project);
+        return uiConfiguration.getMain();
     }
 
     @Override
     public boolean isModified() {
-        if (null == configuration) { return false;}
-        return configuration.isModified();
+        POMTemplateVariablesData persistedConfiguration = POMTemplateVariablesData.getInstance();
+        return !(
+                uiConfiguration.getVersion().equals(persistedConfiguration.getState().getVersion())
+                        &&
+                uiConfiguration.getName().equals(persistedConfiguration.getState().getName())
+        );
+    }
+
+    @Override
+    public void reset() {
+
+        POMTemplateVariablesData persistedConfiguration = POMTemplateVariablesData.getInstance();
+        uiConfiguration.setVersion(persistedConfiguration.getVersion());
+        uiConfiguration.setName(persistedConfiguration.getName());
+
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        configuration.commit();
+
+        POMTemplateVariablesData persistedConfiguration = POMTemplateVariablesData.getInstance();
+
+        persistedConfiguration.setVersion(uiConfiguration.getVersion());
+        persistedConfiguration.setName(uiConfiguration.getName());
+
     }
+
+
 }

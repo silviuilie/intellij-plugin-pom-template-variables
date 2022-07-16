@@ -12,6 +12,7 @@ import com.intellij.psi.search.ProjectScopeImpl;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
+import eu.pm.idea.project.configuration.POMTemplateVariablesData;
 import eu.pm.idea.project.maven.POMProject;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,17 +29,14 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
 
     private static final String UNKNOWN_VALUE = "unknown";
 
-    private static final String VERSION_VAR_NAME = "CURRENT_VERSION";
 
-    private String versionVarName = VERSION_VAR_NAME;
-
-    private static final String ARTIFACT_VAR_NAME = "ARTIFACT_ID";
-
-    private String artifactId = ARTIFACT_VAR_NAME;
+    POMTemplateVariablesData defaultTemplateVariables = null;
 
 
     @Override
     public void fillProperties(@NotNull PsiDirectory psiDirectory, @NotNull Properties properties) {
+
+        defaultTemplateVariables = POMTemplateVariablesData.getInstance();//psiDirectory.getProject().getService(POMTemplateVariablesData.class);
 
         final Project project = psiDirectory.getProject();
         DomManager domManager = DomManager.getDomManager(project);
@@ -58,8 +56,8 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
                 var psiFile = PsiManager.getInstance(project).findFile(vfile);
                 XmlFile asXMLFile = (XmlFile) psiFile;
 
-                DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
-                //   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
+                    //   DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
+                   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
 
                 POMProject pomProject = (POMProject) domFileElement.getRootElement();
                 candidateVersion = pomProject.getVersion() != null ? pomProject.getVersion().getValue() : "unknown";
@@ -67,16 +65,8 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
                 logger.error("failed to get version with : " + e.getMessage(), e);
             }
         }
-        properties.put(this.versionVarName, candidateVersion);
-        properties.put(this.artifactId, artifactId);
-    }
-
-    public void setVersionVarName(String versionVarName) {
-        this.versionVarName = versionVarName;
-    }
-
-    public void setArtifactId(String artifactId) {
-        this.artifactId = artifactId;
+        properties.put(defaultTemplateVariables.getVersion(), candidateVersion);
+        properties.put(defaultTemplateVariables.getName(), project.getName() + "(todo!)");
     }
 
     private static final Logger logger = Logger.getInstance("#eu.pm.idea.project.filetemplate.POMPropertiesProvider");

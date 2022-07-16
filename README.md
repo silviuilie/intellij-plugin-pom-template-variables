@@ -13,14 +13,16 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
     * ..
 
 
-###### TODO
+###### TODOs
 
-- rename classes
-- UI, change the variable name
+- rename POM* classes
+- ~~UI, change the variable name~~
 - multimodule support, find version from the pom of the current module
 - gradle
 - find the cause for error #1
 
+###### references: 
+- [Overview of Custom Settings Implementation](https://plugins.jetbrains.com/docs/intellij/settings-tutorial.html#the-appsettingsstate-class)
 
 ###### issues
  

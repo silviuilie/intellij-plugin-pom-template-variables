@@ -33,5 +33,9 @@
         <dom.fileMetaData implementation="eu.pm.idea.project.maven.POMDomFileDescription" rootTagName="project"/>
 
         <projectConfigurable instance="eu.pm.idea.project.configuration.POMTemplateVariablesConfigurable"/>
+
+<!--        <projectService serviceImplementation="eu.pm.idea.project.configuration.POMTemplateVariablesData"/>-->
+        <applicationService serviceImplementation="eu.pm.idea.project.configuration.POMTemplateVariablesData"/>
+
     </extensions>
 </idea-plugin>
