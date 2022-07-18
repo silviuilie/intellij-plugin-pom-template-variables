@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author silviu ilie
  * @since 1.0-SNAPSHOT on exposePOMtoFileTemplateVars
  **/
-public interface POMProjectVersion  extends DomElement {
+public interface ProjectModelRootVersion extends DomElement {
 
     @NotNull
     @Required(value = false, nonEmpty = true)

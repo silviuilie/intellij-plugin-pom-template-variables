@@ -9,8 +9,8 @@ import com.intellij.util.xmlb.annotations.Tag;
  * @author silviu ilie
  * @since 1.0-SNAPSHOT on exposePOMtoFileTemplateVars
  **/
-public interface POMProjectParent  extends DomElement {
+public interface ProjectModelRootParent extends DomElement {
 
     @Tag("version")
-    POMProjectVersion getValue();
+    ProjectModelRootVersion getValue();
 }

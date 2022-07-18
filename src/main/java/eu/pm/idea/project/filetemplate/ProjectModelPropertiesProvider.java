@@ -12,8 +12,8 @@ import com.intellij.psi.search.ProjectScopeImpl;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
-import eu.pm.idea.project.configuration.POMTemplateVariablesData;
-import eu.pm.idea.project.maven.POMProject;
+import eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData;
+import eu.pm.idea.project.maven.ProjectModelRoot;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -25,18 +25,18 @@ import java.util.Properties;
  * @author silviu ilie
  * @since 1.0-SNAPSHOT on exposePOMtoFileTemplateVars
  **/
-public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider {
+public class ProjectModelPropertiesProvider implements DefaultTemplatePropertiesProvider {
 
     private static final String UNKNOWN_VALUE = "unknown";
 
 
-    POMTemplateVariablesData defaultTemplateVariables = null;
+    ProjectModelTemplateVariablesData defaultTemplateVariables = null;
 
 
     @Override
     public void fillProperties(@NotNull PsiDirectory psiDirectory, @NotNull Properties properties) {
 
-        defaultTemplateVariables = POMTemplateVariablesData.getInstance();//psiDirectory.getProject().getService(POMTemplateVariablesData.class);
+        defaultTemplateVariables = ProjectModelTemplateVariablesData.getInstance();//psiDirectory.getProject().getService(POMTemplateVariablesData.class);
 
         final Project project = psiDirectory.getProject();
         DomManager domManager = DomManager.getDomManager(project);
@@ -56,11 +56,11 @@ public class POMPropertiesProvider implements DefaultTemplatePropertiesProvider 
                 var psiFile = PsiManager.getInstance(project).findFile(vfile);
                 XmlFile asXMLFile = (XmlFile) psiFile;
 
-                       DomFileElement domFileElement = domManager.getFileElement(asXMLFile, POMProject.class);
+                       DomFileElement domFileElement = domManager.getFileElement(asXMLFile, ProjectModelRoot.class);
 //                   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
 
-                POMProject pomProject = (POMProject) domFileElement.getRootElement();
-                candidateVersion = pomProject.getVersion() != null ? pomProject.getVersion().getValue() : "unknown";
+                ProjectModelRoot projectModelRoot = (ProjectModelRoot) domFileElement.getRootElement();
+                candidateVersion = projectModelRoot.getVersion() != null ? projectModelRoot.getVersion().getValue() : "unknown";
             } catch (Exception e) {
                 logger.error("failed to get version with : " + e.getMessage(), e);
             }

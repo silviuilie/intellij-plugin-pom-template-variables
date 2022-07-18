@@ -28,14 +28,14 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <defaultTemplatePropertiesProvider implementation="eu.pm.idea.project.filetemplate.POMPropertiesProvider"/>
+        <defaultTemplatePropertiesProvider implementation="eu.pm.idea.project.filetemplate.ProjectModelPropertiesProvider"/>
 
-        <dom.fileMetaData implementation="eu.pm.idea.project.maven.POMDomFileDescription" rootTagName="project"/>
+        <dom.fileMetaData implementation="eu.pm.idea.project.maven.ProjectModelDomFileDescription" rootTagName="project"/>
 
-        <projectConfigurable instance="eu.pm.idea.project.configuration.POMTemplateVariablesConfigurable"/>
+        <projectConfigurable instance="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesConfigurable"/>
 
-<!--        <projectService serviceImplementation="eu.pm.idea.project.configuration.POMTemplateVariablesData"/>-->
-        <applicationService serviceImplementation="eu.pm.idea.project.configuration.POMTemplateVariablesData"/>
+<!--        <projectService serviceImplementation="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData"/>-->
+        <applicationService serviceImplementation="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData"/>
 
     </extensions>
 </idea-plugin>

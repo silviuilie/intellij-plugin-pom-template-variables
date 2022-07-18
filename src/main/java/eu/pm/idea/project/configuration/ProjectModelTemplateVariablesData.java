@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
         storages = @Storage("pom-template-variables.xml")
 )
 //public class POMTemplateVariablesData implements PersistentStateComponent<TemplateVariables> {
-public class POMTemplateVariablesData implements PersistentStateComponent<POMTemplateVariablesData> {
+public class ProjectModelTemplateVariablesData implements PersistentStateComponent<ProjectModelTemplateVariablesData> {
 
     //private TemplateVariables persisted;
 
@@ -29,23 +29,23 @@ public class POMTemplateVariablesData implements PersistentStateComponent<POMTem
     private String version = DEFAULT_VERSION_VAR_NAME;
     private String name = DEFAULT_ARTIFACT_VAR_NAME;
 
-    public POMTemplateVariablesData() {
+    public ProjectModelTemplateVariablesData() {
         //
         System.out.println("create service POMTemplateVariablesData ");
     }
 
-    public static POMTemplateVariablesData getInstance() {
-        return ApplicationManager.getApplication().getService(POMTemplateVariablesData.class);
+    public static ProjectModelTemplateVariablesData getInstance() {
+        return ApplicationManager.getApplication().getService(ProjectModelTemplateVariablesData.class);
     }
 
     @Override
-    public @Nullable POMTemplateVariablesData getState() {
+    public @Nullable ProjectModelTemplateVariablesData getState() {
 //        return this.persisted;
         return this;
     }
 
     @Override
-    public void loadState(@NotNull POMTemplateVariablesData state) {
+    public void loadState(@NotNull ProjectModelTemplateVariablesData state) {
         //this.persisted = new TemplateVariables(state.getVersion(), state.getName());
         XmlSerializerUtil.copyBean(state, this);
         //XmlSerializerUtil.copyBean(state, this.persisted);

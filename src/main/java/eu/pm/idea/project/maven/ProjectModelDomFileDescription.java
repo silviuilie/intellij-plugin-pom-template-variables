@@ -17,15 +17,15 @@ import org.jetbrains.annotations.NotNull;
  * @author silviu ilie
  * @since 1.0-SNAPSHOT on exposePOMtoFileTemplateVars
  **/
-public class POMDomFileDescription<T extends DomElement> extends DomFileDescription<T> {
+public class ProjectModelDomFileDescription<T extends DomElement> extends DomFileDescription<T> {
 
-    public POMDomFileDescription() {
-        this(POMProject.class, "project","project");
+    public ProjectModelDomFileDescription() {
+        this(ProjectModelRoot.class, "project","project");
     }
 
-    public POMDomFileDescription(Class rootElementClass,
-                                 @NonNls String rootTagName,
-                                 @NonNls String @NotNull ... allPossibleRootTagNamespaces) {
+    public ProjectModelDomFileDescription(Class rootElementClass,
+                                          @NonNls String rootTagName,
+                                          @NonNls String @NotNull ... allPossibleRootTagNamespaces) {
         super(rootElementClass, rootTagName, allPossibleRootTagNamespaces);
     }
 

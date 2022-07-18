@@ -14,18 +14,18 @@ import javax.swing.*;
  * @author silviu ilie
  * @since unknown on exposePOMtoFileTemplates
  **/
-public class POMTemplateVariablesConfigurable implements Configurable.NoScroll, Configurable {
+public class ProjectModelTemplateVariablesConfigurable implements Configurable.NoScroll, Configurable {
 
     private final Project project;
     private ConfigurationComponent uiConfiguration;
 
-    public POMTemplateVariablesConfigurable(Project project) {
+    public ProjectModelTemplateVariablesConfigurable(Project project) {
         this.project = project;
     }
 
     @Override
     public @NlsContexts.ConfigurableName String getDisplayName() {
-        return "Build Tool Template Variables";
+        return "Project Model Template Variables";
     }
 
     @Override
@@ -36,7 +36,7 @@ public class POMTemplateVariablesConfigurable implements Configurable.NoScroll, 
 
     @Override
     public boolean isModified() {
-        POMTemplateVariablesData persistedConfiguration = POMTemplateVariablesData.getInstance();
+        ProjectModelTemplateVariablesData persistedConfiguration = ProjectModelTemplateVariablesData.getInstance();
         return !(
                 uiConfiguration.getVersion().equals(persistedConfiguration.getState().getVersion())
                         &&
@@ -47,7 +47,7 @@ public class POMTemplateVariablesConfigurable implements Configurable.NoScroll, 
     @Override
     public void reset() {
 
-        POMTemplateVariablesData persistedConfiguration = POMTemplateVariablesData.getInstance();
+        ProjectModelTemplateVariablesData persistedConfiguration = ProjectModelTemplateVariablesData.getInstance();
         uiConfiguration.setVersion(persistedConfiguration.getVersion());
         uiConfiguration.setName(persistedConfiguration.getName());
 
@@ -56,7 +56,7 @@ public class POMTemplateVariablesConfigurable implements Configurable.NoScroll, 
     @Override
     public void apply() throws ConfigurationException {
 
-        POMTemplateVariablesData persistedConfiguration = POMTemplateVariablesData.getInstance();
+        ProjectModelTemplateVariablesData persistedConfiguration = ProjectModelTemplateVariablesData.getInstance();
 
         persistedConfiguration.setVersion(uiConfiguration.getVersion());
         persistedConfiguration.setName(uiConfiguration.getName());
