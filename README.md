@@ -21,7 +21,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 - ~~UI, change the variable name~~
 - multimodule support;
     - find version of the parent;
-    - find version from the pom of the current module
+    - ~~find version from the pom of the current module~~
 - gradle 
 
 ###### references: 
