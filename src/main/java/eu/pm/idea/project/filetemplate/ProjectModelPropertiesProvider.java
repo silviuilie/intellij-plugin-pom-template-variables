@@ -57,6 +57,7 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
      */
     private void setVersion(PsiDirectory psiDirectory, @NotNull Properties properties, Project project, DomManager domManager) {
         String candidateVersion = UNKNOWN_VALUE;
+        String candidateModuleName = UNKNOWN_VALUE;
         ProjectScopeImpl scope = new ProjectScopeImpl(project, FileIndexFacade.getInstance(domManager.getProject()));
         Collection<VirtualFile> virtualFiles = FilenameIndex.getVirtualFilesByName("pom.xml", scope);
 
@@ -77,6 +78,12 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
                     if (domFileElement != null) {
                         ProjectModelRoot projectModelRoot = (ProjectModelRoot) domFileElement.getRootElement();
                         candidateVersion = projectModelRoot.getVersion() != null ? projectModelRoot.getVersion().getValue() : "unknown";
+                        candidateModuleName = ProjectFileIndex.SERVICE.getInstance(project).getModuleForFile(vfile).getName();
+
+                        if (!candidateVersion.equals(UNKNOWN_VALUE)) {
+                            break;
+                        }
+
                     }
                 }
             } catch (Exception e) {
@@ -84,7 +91,7 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
             }
         }
         properties.put(defaultTemplateVariables.getVersion(), candidateVersion);
-        properties.put(defaultTemplateVariables.getName(), project.getName() + "(todo!)");
+        properties.put(defaultTemplateVariables.getName(), candidateModuleName);
     }
 
     private static final Logger logger = Logger.getInstance("#eu.pm.idea.project.filetemplate.POMPropertiesProvider");

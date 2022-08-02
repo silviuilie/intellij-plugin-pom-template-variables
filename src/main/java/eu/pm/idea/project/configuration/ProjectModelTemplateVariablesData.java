@@ -31,7 +31,6 @@ public class ProjectModelTemplateVariablesData implements PersistentStateCompone
 
     public ProjectModelTemplateVariablesData() {
         //
-        System.out.println("create service POMTemplateVariablesData ");
     }
 
     public static ProjectModelTemplateVariablesData getInstance() {
