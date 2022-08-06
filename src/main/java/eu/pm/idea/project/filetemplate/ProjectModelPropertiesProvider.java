@@ -13,12 +13,15 @@ import com.intellij.psi.search.ProjectScopeImpl;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
+import eu.pm.idea.project.configuration.ErrorNotifier;
 import eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData;
 import eu.pm.idea.project.maven.ProjectModelRoot;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Properties;
+
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * property provider exposing project object model.
@@ -61,6 +64,7 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
         ProjectScopeImpl scope = new ProjectScopeImpl(project, FileIndexFacade.getInstance(domManager.getProject()));
         Collection<VirtualFile> virtualFiles = FilenameIndex.getVirtualFilesByName("pom.xml", scope);
 
+        boolean errNotified = false;
 
         String currentFileRoot = ProjectFileIndex.SERVICE.getInstance(project).getContentRootForFile(psiDirectory.getVirtualFile()).getPath();
 
@@ -88,8 +92,15 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
                 }
             } catch (Exception e) {
                 logger.error("failed to get version with : " + e.getMessage(), e);
+                ErrorNotifier.notifyError(project, e.getMessage());
+                errNotified = true;
             }
         }
+
+        if (!errNotified && isNotEmpty(virtualFiles) && candidateVersion.equals(UNKNOWN_VALUE)) {
+            ErrorNotifier.notifyError(project, "version not identified.");
+        }
+
         properties.put(defaultTemplateVariables.getVersion(), candidateVersion);
         properties.put(defaultTemplateVariables.getName(), candidateModuleName);
     }

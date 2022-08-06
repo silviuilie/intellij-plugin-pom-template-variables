@@ -25,6 +25,8 @@
     <depends>com.intellij.modules.platform</depends>
 <!--    <depends>org.jetbrains.idea.maven.model</depends>-->
 
+    <!-- Declare the default resource location for localizing menu strings -->
+    <resource-bundle>messages.PomToTemplatesBundle</resource-bundle>
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
@@ -32,10 +34,14 @@
 
         <dom.fileMetaData implementation="eu.pm.idea.project.maven.ProjectModelDomFileDescription" rootTagName="project"/>
 
-        <projectConfigurable instance="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesConfigurable"/>
+        <projectConfigurable instance="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesConfigurable"
+                             key="plugin.name"/>
 
 <!--        <projectService serviceImplementation="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData"/>-->
         <applicationService serviceImplementation="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData"/>
 
+        <notificationGroup id="ProjectModelPluginERR"
+                           displayType="BALLOON"
+                           key="err.notification.disable"/>
     </extensions>
 </idea-plugin>

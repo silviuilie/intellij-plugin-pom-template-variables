@@ -19,6 +19,7 @@ intellij {
 }
 
 tasks {
+
     // Set the JVM compatibility versions
     withType<JavaCompile> {
         sourceCompatibility = "11"
