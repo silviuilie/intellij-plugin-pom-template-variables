@@ -23,6 +23,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
     - find version of the parent;
     - ~~add unidentified version error~~
        - disable plugin link
+         - add string template 
     - ~~find version from the pom of the current module~~
     - ~~find name of the current module~~
 - gradle 
