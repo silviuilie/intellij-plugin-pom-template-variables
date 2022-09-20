@@ -1,17 +1,22 @@
 package eu.pm.idea.project.configuration;
 
-import com.intellij.DynamicBundle;
+import com.intellij.ide.plugins.PluginManagerCore;
+import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationGroupManager;
+import com.intellij.notification.NotificationListener;
 import com.intellij.notification.NotificationType;
+import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.project.Project;
+import org.apache.commons.text.StringSubstitutor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Locale;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
+import javax.swing.event.HyperlinkEvent;
+import java.util.*;
 
 /**
- * TODO : comment !
+ *
+ * plugin exec error notification
  *
  * @author silviu ilie
  * @since unknown on exposePOMtoFileTemplates
@@ -19,6 +24,18 @@ import java.util.ResourceBundle;
 public class ErrorNotifier {
     private static ResourceBundle bundle = null;
     private static String title;
+
+    private static final String disableDescription = "disable";
+    private static final String reportDescription = "report";
+
+    private static String template = "${content}<br/>" +
+            "<a href='disable'>Disable plugin</a>&nbsp<a href='report'>Report Error</a>";
+
+    /* TODO : use
+    static final NotificationListener.UrlOpeningListener urlOpeningListener = new NotificationListener.UrlOpeningListener(false) {{
+
+    }};*/
+
 
     public static void notifyError(@Nullable Project project,
                                    String content) {
@@ -29,8 +46,29 @@ public class ErrorNotifier {
         }
         NotificationGroupManager.getInstance()
                 .getNotificationGroup("ProjectModelPluginERR")
-                .createNotification(content, NotificationType.ERROR)
-                .setTitle(title)
+                .createNotification(mergeTemplate(content), NotificationType.ERROR)
+                .setListener(new NotificationListener.Adapter() {
+                    @Override
+                    protected void hyperlinkActivated(@NotNull Notification notification, @NotNull HyperlinkEvent e) {
+                        if (e.getDescription().equalsIgnoreCase(disableDescription)) {
+                            PluginManagerCore.disablePlugin(PluginId.getId("eu.pm.idea.project.filetemplate"));
+                        } else if (e.getDescription().equalsIgnoreCase(reportDescription)) {
+                            // TODO
+                        }
+                    }
+                })
+                .setTitle(title)//.addAction(new BrowseNotificationAction("test",))
                 .notify(project);
+    }
+
+    private static String mergeTemplate(String content) {
+        Map<String, String> valuesMap = new HashMap<String, String>();
+        valuesMap.put("content", content);
+        valuesMap.put("report", disableDescription);
+        valuesMap.put("disable", disableDescription);
+
+        StringSubstitutor sub = new StringSubstitutor(valuesMap);
+
+        return sub.replace(template);
     }
 }

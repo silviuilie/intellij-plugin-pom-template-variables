@@ -39,15 +39,12 @@ public class ProjectModelTemplateVariablesData implements PersistentStateCompone
 
     @Override
     public @Nullable ProjectModelTemplateVariablesData getState() {
-//        return this.persisted;
         return this;
     }
 
     @Override
     public void loadState(@NotNull ProjectModelTemplateVariablesData state) {
-        //this.persisted = new TemplateVariables(state.getVersion(), state.getName());
         XmlSerializerUtil.copyBean(state, this);
-        //XmlSerializerUtil.copyBean(state, this.persisted);
     }
 
     public String getVersion() {

@@ -18,6 +18,9 @@ intellij {
     plugins.set(listOf(/*"org.jetbrains.idea.maven.model"*//* Plugin Dependencies */))
 }
 
+dependencies {
+    implementation("org.apache.commons:commons-text:1.9")
+}
 tasks {
 
     // Set the JVM compatibility versions
