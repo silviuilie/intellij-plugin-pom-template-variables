@@ -1,10 +1,8 @@
 package eu.pm.idea.project.configuration;
 
+import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.plugins.PluginManagerCore;
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationGroupManager;
-import com.intellij.notification.NotificationListener;
-import com.intellij.notification.NotificationType;
+import com.intellij.notification.*;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.project.Project;
 import org.apache.commons.text.StringSubstitutor;
@@ -13,6 +11,8 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.event.HyperlinkEvent;
 import java.util.*;
+
+import static org.bouncycastle.asn1.cmc.CMCStatus.success;
 
 /**
  *
@@ -27,6 +27,8 @@ public class ErrorNotifier {
 
     private static final String disableDescription = "disable";
     private static final String reportDescription = "report";
+
+    private static final String reportURL = "https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/new";
 
     private static String template = "${content}<br/>" +
             "<a href='disable'>Disable plugin</a>&nbsp<a href='report'>Report Error</a>";
@@ -52,8 +54,9 @@ public class ErrorNotifier {
                     protected void hyperlinkActivated(@NotNull Notification notification, @NotNull HyperlinkEvent e) {
                         if (e.getDescription().equalsIgnoreCase(disableDescription)) {
                             PluginManagerCore.disablePlugin(PluginId.getId("eu.pm.idea.project.filetemplate"));
+                            //Notifications.Bus.notify(new Notification("ProjectModelPluginERR","done",NotificationType.INFORMATION), project);
                         } else if (e.getDescription().equalsIgnoreCase(reportDescription)) {
-                            // TODO
+                            BrowserLauncher.getInstance().open(reportURL);
                         }
                     }
                 })
