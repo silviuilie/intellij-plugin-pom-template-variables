@@ -96,7 +96,7 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
                 errNotified = true;
             }
         }
-
+        ErrorNotifier.notifyError(project, "version not identified.");
         if (!errNotified && isNotEmpty(virtualFiles) && candidateVersion.equals(UNKNOWN_VALUE)) {
             ErrorNotifier.notifyError(project, "version not identified.");
         }

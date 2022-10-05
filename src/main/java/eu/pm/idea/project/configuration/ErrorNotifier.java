@@ -3,6 +3,7 @@ package eu.pm.idea.project.configuration;
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.notification.*;
+import com.intellij.openapi.application.ex.ApplicationManagerEx;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.project.Project;
 import org.apache.commons.text.StringSubstitutor;
@@ -54,7 +55,7 @@ public class ErrorNotifier {
                     protected void hyperlinkActivated(@NotNull Notification notification, @NotNull HyperlinkEvent e) {
                         if (e.getDescription().equalsIgnoreCase(disableDescription)) {
                             PluginManagerCore.disablePlugin(PluginId.getId("eu.pm.idea.project.filetemplate"));
-                            //Notifications.Bus.notify(new Notification("ProjectModelPluginERR","done",NotificationType.INFORMATION), project);
+                            ApplicationManagerEx.getApplicationEx().restart(true);
                         } else if (e.getDescription().equalsIgnoreCase(reportDescription)) {
                             BrowserLauncher.getInstance().open(reportURL);
                         }
