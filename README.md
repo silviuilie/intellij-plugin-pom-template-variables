@@ -23,8 +23,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
     - find version of the parent; 
     - ~~add unidentified version error~~
         - ~~get bundle name from plugin settings~~
-        - ~~disable plugin link~~
-          - ~~https://stackoverflow.com/questions/41298454/how-to-make-a-url-in-a-balloon-notification-clickable with  UrlOpeningListener~~
+        - ~~disable plugin link~~ 
           - ~~restart on disable plugin~~
           - ~~add string template~~
           - notification: report issue URL 
