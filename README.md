@@ -37,7 +37,6 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
    module exports ? see https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/1
    
    
-2. TODO : how to use org.jetbrains.idea.maven.dom.model.MavenDomProjectModel ?
-   (see `eu.pm.idea.project.maven.ProjectModelDomFileDescription`)
+2. use org.jetbrains.idea.maven.dom.model.MavenDomProjectModel ? see https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/2
 
  
