@@ -38,12 +38,6 @@ public class ErrorNotifier {
     private static String template = "${content}<br/>" +
             "<a href='disable'>Disable plugin and restart.. </a>&nbsp;<a href='configure'>Configure plugin</a>&nbsp;&nbsp;&nbsp;<a href='report'> Report Error</a>";
 
-    /* TODO : use
-    static final NotificationListener.UrlOpeningListener urlOpeningListener = new NotificationListener.UrlOpeningListener(false) {{
-
-    }};*/
-
-
     public static void notifyError(@Nullable Project project,
                                    String content) {
 

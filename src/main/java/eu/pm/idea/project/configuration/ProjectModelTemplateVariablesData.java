@@ -18,10 +18,7 @@ import org.jetbrains.annotations.Nullable;
         name = "eu.pm.idea.project.configuration.TemplateVariables",
         storages = @Storage("pom-template-variables.xml")
 )
-//public class POMTemplateVariablesData implements PersistentStateComponent<TemplateVariables> {
 public class ProjectModelTemplateVariablesData implements PersistentStateComponent<ProjectModelTemplateVariablesData> {
-
-    //private TemplateVariables persisted;
 
     private static final String DEFAULT_VERSION_VAR_NAME = "CURRENT_VERSION";
     private static final String DEFAULT_ARTIFACT_VAR_NAME = "ARTIFACT_ID";

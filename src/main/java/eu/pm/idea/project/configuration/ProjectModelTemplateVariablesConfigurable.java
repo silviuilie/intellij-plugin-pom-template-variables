@@ -46,21 +46,17 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
 
     @Override
     public void reset() {
-
         ProjectModelTemplateVariablesData persistedConfiguration = ProjectModelTemplateVariablesData.getInstance();
         uiConfiguration.setVersion(persistedConfiguration.getVersion());
         uiConfiguration.setName(persistedConfiguration.getName());
-
     }
 
     @Override
     public void apply() throws ConfigurationException {
-
         ProjectModelTemplateVariablesData persistedConfiguration = ProjectModelTemplateVariablesData.getInstance();
 
         persistedConfiguration.setVersion(uiConfiguration.getVersion());
         persistedConfiguration.setName(uiConfiguration.getName());
-
     }
 
 

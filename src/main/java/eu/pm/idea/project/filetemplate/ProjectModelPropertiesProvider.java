@@ -40,10 +40,8 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
     @Override
     public void fillProperties(@NotNull PsiDirectory psiDirectory, @NotNull Properties properties) {
 
+        defaultTemplateVariables = ProjectModelTemplateVariablesData.getInstance();
 
-        defaultTemplateVariables = ProjectModelTemplateVariablesData.getInstance();//psiDirectory.getProject().getService(POMTemplateVariablesData.class);
-
-        //psiDirectory.getParentDirectory()
         final Project project = psiDirectory.getProject();
         DomManager domManager = DomManager.getDomManager(project);
 
@@ -52,11 +50,8 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
     }
 
     /**
-     * todo :
-     * <p>
-     * is vFile in psiDirectory ?
-     * <p>
-     * PsiDirectory
+     * produce version/artifact name from pom/gradle
+     *
      */
     private void setVersion(PsiDirectory psiDirectory, @NotNull Properties properties, Project project, DomManager domManager) {
         String candidateVersion = UNKNOWN_VALUE;
