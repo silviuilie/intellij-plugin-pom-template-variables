@@ -17,21 +17,14 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 
 ###### TODOs
 
-- ~~rename POM* classes~~
-- ~~UI, change the variable name~~
 - multimodule support;
     - find version of the parent; 
-    - ~~add unidentified version error~~
-        - ~~get bundle name from plugin settings~~
-        - ~~disable plugin link~~ 
-          - ~~restart on disable plugin~~
-          - ~~add string template~~
-          - notification: report issue URL 
-    - ~~find version from the pom of the current module~~
-    - ~~find name of the current module~~
+    - add unidentified version error  
+          - notification: report issue URL  
+          - ~~on error show configuration~~ 
 - gradle 
 
-###### references: 
+###### refs: 
 - **[File Template Variables IDEA plugin](https://github.com/vkravets/FileTemplatesVariable) by Vladimir Kravets**
 - [XML DOM API](https://plugins.jetbrains.com/docs/intellij/xml-dom-api.html?from=jetbrains.org)
 - [Plugin Configuration File](https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html)
