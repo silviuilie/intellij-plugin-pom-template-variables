@@ -23,6 +23,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
           - notification: report issue URL  
           - ~~on error show configuration~~ 
 - gradle 
+    - see https://github.com/JetBrains/gradle-intellij-plugin/blob/master/src/main/kotlin/org/jetbrains/intellij/Version.kt
 
 ###### refs: 
 - **[File Template Variables IDEA plugin](https://github.com/vkravets/FileTemplatesVariable) by Vladimir Kravets**
