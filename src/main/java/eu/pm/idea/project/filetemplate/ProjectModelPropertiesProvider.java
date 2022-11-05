@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Properties;
 
+import static org.apache.commons.collections.CollectionUtils.isEmpty;
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
@@ -36,6 +37,36 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
 
     ProjectModelTemplateVariablesData defaultTemplateVariables = null;
 
+    class SimpleProjectDescriptor {
+        private String candidateVersion = UNKNOWN_VALUE;
+        private String candidateModuleName = UNKNOWN_VALUE;
+
+        public SimpleProjectDescriptor() {
+            //
+        }
+
+        public SimpleProjectDescriptor(String candidateVersion, String candidateModuleName) {
+            this.candidateVersion = candidateVersion;
+            this.candidateModuleName = candidateModuleName;
+        }
+
+          void setCandidateVersion(String candidateVersion) {
+            this.candidateVersion = candidateVersion;
+        }
+
+          void setCandidateModuleName(String candidateModuleName) {
+            this.candidateModuleName = candidateModuleName;
+        }
+
+          String getCandidateVersion() {
+            return candidateVersion;
+        }
+
+          String getCandidateModuleName() {
+            return candidateModuleName;
+        }
+    }
+    SimpleProjectDescriptor simpleProjectDescriptor = new SimpleProjectDescriptor();
 
     @Override
     public void fillProperties(@NotNull PsiDirectory psiDirectory, @NotNull Properties properties) {
@@ -54,16 +85,34 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
      *
      */
     private void setVersion(PsiDirectory psiDirectory, @NotNull Properties properties, Project project, DomManager domManager) {
-        String candidateVersion = UNKNOWN_VALUE;
-        String candidateModuleName = UNKNOWN_VALUE;
+
         ProjectScopeImpl scope = new ProjectScopeImpl(project, FileIndexFacade.getInstance(domManager.getProject()));
-        Collection<VirtualFile> virtualFiles = FilenameIndex.getVirtualFilesByName("pom.xml", scope);
-
-        boolean errNotified = false;
-
         String currentFileRoot = ProjectFileIndex.SERVICE.getInstance(project).getContentRootForFile(psiDirectory.getVirtualFile()).getPath();
 
-        for (VirtualFile vfile : virtualFiles) {
+        Collection<VirtualFile> pomVirtualFiles = FilenameIndex.getVirtualFilesByName("pom.xml", scope);
+        boolean errNotified = false;
+
+
+        if (!isEmpty(pomVirtualFiles)) {
+            errNotified = loadMavenVersion(project, domManager, currentFileRoot, pomVirtualFiles);
+        } else {
+
+            Collection<VirtualFile> gradleVirtualFiles = FilenameIndex.getVirtualFilesByName("build.gradle", scope);
+        }
+
+
+
+        if (!errNotified && isNotEmpty(pomVirtualFiles) && simpleProjectDescriptor.getCandidateVersion().equals(UNKNOWN_VALUE)) {
+            ErrorNotifier.notifyError(project, "version not identified.");
+        }
+
+        properties.put(defaultTemplateVariables.getVersion(), simpleProjectDescriptor.getCandidateVersion());
+        properties.put(defaultTemplateVariables.getName(), simpleProjectDescriptor.getCandidateModuleName());
+    }
+
+    private boolean loadMavenVersion(Project project, DomManager domManager, String currentFileRoot, Collection<VirtualFile> pomVirtualFiles) {
+        boolean errNotified = false;
+        for (VirtualFile vfile : pomVirtualFiles) {
             try {
                 var psiFile = PsiManager.getInstance(project).findFile(vfile);
                 String pomModuleRoot = ProjectFileIndex.SERVICE.getInstance(project).getContentRootForFile(vfile).getPath();
@@ -72,14 +121,14 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
 
                     XmlFile asXMLFile = (XmlFile) psiFile;
                     DomFileElement domFileElement = domManager.getFileElement(asXMLFile, ProjectModelRoot.class);
-//                   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
+                    //   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
 
                     if (domFileElement != null) {
                         ProjectModelRoot projectModelRoot = (ProjectModelRoot) domFileElement.getRootElement();
-                        candidateVersion = projectModelRoot.getVersion() != null ? projectModelRoot.getVersion().getValue() : "unknown";
-                        candidateModuleName = ProjectFileIndex.SERVICE.getInstance(project).getModuleForFile(vfile).getName();
+                        simpleProjectDescriptor.setCandidateVersion(projectModelRoot.getVersion() != null ? projectModelRoot.getVersion().getValue() : UNKNOWN_VALUE);
+                        simpleProjectDescriptor.setCandidateModuleName(ProjectFileIndex.SERVICE.getInstance(project).getModuleForFile(vfile).getName());
 
-                        if (!candidateVersion.equals(UNKNOWN_VALUE)) {
+                        if (!simpleProjectDescriptor.getCandidateVersion().equals(UNKNOWN_VALUE)) {
                             break;
                         }
 
@@ -91,13 +140,7 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
                 errNotified = true;
             }
         }
-
-        if (!errNotified && isNotEmpty(virtualFiles) && candidateVersion.equals(UNKNOWN_VALUE)) {
-            ErrorNotifier.notifyError(project, "version not identified.");
-        }
-
-        properties.put(defaultTemplateVariables.getVersion(), candidateVersion);
-        properties.put(defaultTemplateVariables.getName(), candidateModuleName);
+        return errNotified;
     }
 
     private static final Logger logger = Logger.getInstance("#eu.pm.idea.project.filetemplate.POMPropertiesProvider");
