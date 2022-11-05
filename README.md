@@ -31,12 +31,17 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 - [Overview of Custom Settings Implementation](https://plugins.jetbrains.com/docs/intellij/settings-tutorial.html#the-appsettingsstate-class)
 - [ IDEs Support (IntelliJ Platform): How to I get all xml files in resource ](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360010497879-How-to-I-get-all-xml-files-in-resource)
 
-###### issues
+###### issues 
  
 1. load pom as MavenDomProjectModel instead of POMProject / how to load MavenDomProjectModel?
-   module exports ? see https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/1
+   module exports ? 
    
+   https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/1
+
+    
    
 2. use org.jetbrains.idea.maven.dom.model.MavenDomProjectModel ? see https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/2
+
+ 
 
  
