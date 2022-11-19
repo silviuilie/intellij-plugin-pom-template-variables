@@ -40,7 +40,6 @@
         <projectConfigurable instance="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesConfigurable"
                              key="plugin.name"/>
 
-<!--        <projectService serviceImplementation="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData"/>-->
         <applicationService serviceImplementation="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData"/>
 
         <notificationGroup id="ProjectModelPluginERR"
