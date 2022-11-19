@@ -40,8 +40,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
    https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/1
 
     
-   
-2. use org.jetbrains.idea.maven.dom.model.MavenDomProjectModel ? see https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/2
+   https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/1
 
  
 

@@ -14,6 +14,7 @@ public class ConfigurationComponent {
     private JPanel mainpanel;
     private JTextField CURRENT_VERSIONTextField;
     private JTextField ARTIFACT_IDTextField;
+
     public void setVersion(String version) {
         CURRENT_VERSIONTextField.setText(version);
     }
