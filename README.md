@@ -19,7 +19,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 
 - multimodule support;
     - find version of the parent; 
-    - add unidentified version error  
+    - ~~add unidentified version error~~ 
           - ~~notification: report issue URL~~
           - ~~on error show configuration~~ 
 - gradle 
