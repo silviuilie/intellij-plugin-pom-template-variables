@@ -20,7 +20,10 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 - multimodule support;
     - find version of the parent;  
 - gradle 
-    - see https://github.com/JetBrains/gradle-intellij-plugin/blob/master/src/main/kotlin/org/jetbrains/intellij/Version.kt
+    - load gradle properties (if any) **TODO** : remove
+    - load gradle **TODO** : see 
+      - https://github.com/JetBrains/gradle-intellij-plugin/blob/master/src/main/kotlin/org/jetbrains/intellij/Version.kt
+      - intellijExtension at https://raw.githubusercontent.com/JetBrains/gradle-intellij-plugin/51ac90da2ede0c02bcadb42c03b156f61fdfe1b1/src/main/kotlin/org/jetbrains/intellij/IntelliJPlugin.kt
 
 ###### refs: 
 - **[File Template Variables IDEA plugin](https://github.com/vkravets/FileTemplatesVariable) by Vladimir Kravets**
