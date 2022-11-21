@@ -30,6 +30,7 @@
 
 <!--    <depends>org.intellij.groovy</depends>-->
     <!--    <depends>org.jetbrains.idea.maven.model</depends>-->
+    <depends>org.jetbrains.plugins.gradle</depends>
 
     <!-- Declare the default resource location for localizing menu strings -->
     <resource-bundle>messages.PomToTemplatesBundle</resource-bundle>

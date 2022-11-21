@@ -15,7 +15,8 @@ intellij {
     version.set("2021.2")
     type.set("IC") // Target IDE Platform
 
-    plugins.set(listOf(/*"org.jetbrains.idea.maven.model"*//* Plugin Dependencies */))
+    plugins.set(listOf("org.jetbrains.plugins.gradle"/*"org.jetbrains.idea.maven.model"*//* Plugin Dependencies */))
+
 }
 
 dependencies {

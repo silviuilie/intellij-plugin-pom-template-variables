@@ -1,7 +1,11 @@
 package eu.pm.idea.project.filetemplate;
 
+import com.intellij.diagnostic.PluginException;
 import com.intellij.ide.fileTemplates.DefaultTemplatePropertiesProvider;
+import com.intellij.ide.plugins.IdeaPluginDescriptor;
+import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.FileIndexFacade;
 import com.intellij.openapi.roots.ProjectFileIndex;
@@ -13,10 +17,10 @@ import com.intellij.psi.search.ProjectScopeImpl;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
+import eu.pm.idea.project.Plugin;
 import eu.pm.idea.project.configuration.ErrorNotifier;
 import eu.pm.idea.project.configuration.ProjectModelTemplateVariablesData;
 import eu.pm.idea.project.maven.ProjectModelRoot;
-import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileReader;
@@ -53,22 +57,23 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
             this.candidateModuleName = candidateModuleName;
         }
 
-          void setCandidateVersion(String candidateVersion) {
+        void setCandidateVersion(String candidateVersion) {
             this.candidateVersion = candidateVersion;
         }
 
-          void setCandidateModuleName(String candidateModuleName) {
+        void setCandidateModuleName(String candidateModuleName) {
             this.candidateModuleName = candidateModuleName;
         }
 
-          String getCandidateVersion() {
+        String getCandidateVersion() {
             return candidateVersion;
         }
 
-          String getCandidateModuleName() {
+        String getCandidateModuleName() {
             return candidateModuleName;
         }
     }
+
     SimpleProjectDescriptor simpleProjectDescriptor = new SimpleProjectDescriptor();
 
     @Override
@@ -85,7 +90,6 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
 
     /**
      * produce version/artifact name from pom/gradle
-     *
      */
     private void setVersion(PsiDirectory psiDirectory, @NotNull Properties properties, Project project, DomManager domManager) {
 
@@ -95,7 +99,6 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
         Collection<VirtualFile> pomVirtualFiles = FilenameIndex.getVirtualFilesByName("pom.xml", scope);
         Collection<VirtualFile> gradlePropertiesVFs = FilenameIndex.getVirtualFilesByName("gradle.properties", scope);
         boolean errNotified = false;
-
 
         if (!isEmpty(pomVirtualFiles)) {
             errNotified = loadMavenVersion(project, domManager, currentFileRoot, pomVirtualFiles);
@@ -116,8 +119,19 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
     private boolean loadGradle(Project project, DomManager domManager, String currentFileRoot, Collection<VirtualFile> gradlePropertiesVFs) {
         boolean errNotified = false;
 
+
+        IdeaPluginDescriptor gradlePlugin = PluginManagerCore.getPlugin(PluginId.getId("org.jetbrains.plugins.gradle"));
+
+        if (null != gradlePlugin && gradlePlugin.isEnabled()) {
+//        PluginContainer pc = ApplicationManager.getApplication().getPicoContainer().
+//            project.getMessageBus().syncPublisher()
+        } else {
+            throw new PluginException("is gradle plugin enabled?", Plugin.id());
+        }
+
+        System.out.println("gradlePlugin = " + gradlePlugin);
+
         // check for properties and common naming
-        ProjectScopeImpl scope = new ProjectScopeImpl(project, FileIndexFacade.getInstance(domManager.getProject()));
         for (VirtualFile vfile : gradlePropertiesVFs) {
             try {
                 var psiFile = PsiManager.getInstance(project).findFile(vfile);
@@ -140,7 +154,6 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
 
         // Load org.jetbrains.intellij.Version.tk from IntelliJPluginExtension
         // see https://raw.githubusercontent.com/JetBrains/gradle-intellij-plugin/51ac90da2ede0c02bcadb42c03b156f61fdfe1b1/src/main/kotlin/org/jetbrains/intellij/IntelliJPlugin.kt
-
 
 
         return errNotified;

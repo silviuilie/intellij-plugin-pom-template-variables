@@ -7,9 +7,9 @@ import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationListener;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.application.ex.ApplicationManagerEx;
-import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.project.Project;
+import eu.pm.idea.project.Plugin;
 import org.apache.commons.text.StringSubstitutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +52,7 @@ public class ErrorNotifier {
                     @Override
                     protected void hyperlinkActivated(@NotNull Notification notification, @NotNull HyperlinkEvent e) {
                         if (e.getDescription().equalsIgnoreCase(disableDescription)) {
-                            PluginManagerCore.disablePlugin(PluginId.getId("eu.pm.idea.project.filetemplate"));
+                            PluginManagerCore.disablePlugin(Plugin.id());
                             ApplicationManagerEx.getApplicationEx().restart(true);
                         } else if (e.getDescription().equalsIgnoreCase(configureDescription)) {
                             ShowSettingsUtil.getInstance().showSettingsDialog(project,ProjectModelTemplateVariablesConfigurable.class);
