@@ -5,7 +5,7 @@ import com.intellij.openapi.project.Project;
 import javax.swing.*;
 
 /**
- * TODO : comment !
+ * config values model.
  *
  * @author silviu ilie
  * @since unknown on exposePOMtoFileTemplates

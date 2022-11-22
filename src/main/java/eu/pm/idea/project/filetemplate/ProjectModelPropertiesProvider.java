@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.FileReader;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Properties;
 
 import static org.apache.commons.collections.CollectionUtils.isEmpty;
@@ -43,8 +44,8 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
     ProjectModelTemplateVariablesData defaultTemplateVariables = null;
 
     class SimpleProjectDescriptor {
-        private String candidateVersion = defaultTemplateVariables.getVersionDefaultValue();
-        private String candidateModuleName = defaultTemplateVariables.getArtifactNameDefaultValue();
+        private String candidateVersion = ProjectModelTemplateVariablesData.getDefaultVersionValue();
+        private String candidateModuleName = ProjectModelTemplateVariablesData.getDefaultArtifactName();
 
         public SimpleProjectDescriptor() {
             //

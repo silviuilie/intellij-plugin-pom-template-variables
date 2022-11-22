@@ -30,6 +30,13 @@ public class ProjectModelTemplateVariablesData implements PersistentStateCompone
     private String name = DEFAULT_ARTIFACT_VAR_NAME;
     private String artifactNameDefaultValue = DEFAULT_VALUE;
 
+    public static String getDefaultVersionValue() {
+        return DEFAULT_VALUE;
+    }
+    public static String getDefaultArtifactName() {
+        return DEFAULT_VALUE;
+    }
+
     public ProjectModelTemplateVariablesData() {
         //
     }

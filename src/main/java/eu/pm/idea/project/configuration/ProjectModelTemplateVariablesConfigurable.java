@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 
 /**
- * TODO : comment !
+ * template variables {@code Configurable}.
  *
  * @author silviu ilie
  * @since unknown on exposePOMtoFileTemplates
@@ -42,9 +42,9 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
                         &&
                 uiConfiguration.getName().equals(persistedConfiguration.getState().getName())
                         &&
-                uiConfiguration.getName().equals(persistedConfiguration.getState().getArtifactNameDefaultValue())
+                uiConfiguration.getArtifactDefaultValue().equals(persistedConfiguration.getState().getArtifactNameDefaultValue())
                         &&
-                uiConfiguration.getName().equals(persistedConfiguration.getState().getVersionDefaultValue())
+                uiConfiguration.getVersionDefaultValue().equals(persistedConfiguration.getState().getVersionDefaultValue())
         );
     }
 
@@ -53,6 +53,7 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
         ProjectModelTemplateVariablesData persistedConfiguration = ProjectModelTemplateVariablesData.getInstance();
         uiConfiguration.setVersion(persistedConfiguration.getVersion());
         uiConfiguration.setName(persistedConfiguration.getName());
+
         uiConfiguration.setArtifactDefaultValue(persistedConfiguration.getArtifactNameDefaultValue());
         uiConfiguration.setVersionDefaultValue(persistedConfiguration.getVersionDefaultValue());
     }
@@ -63,8 +64,9 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
 
         persistedConfiguration.setVersion(uiConfiguration.getVersion());
         persistedConfiguration.setName(uiConfiguration.getName());
-        persistedConfiguration.setArtifactNameDefaultValue(uiConfiguration.getArtifactDefaultValue());
+
         persistedConfiguration.setVersionDefaultValue(uiConfiguration.getVersionDefaultValue());
+        persistedConfiguration.setArtifactNameDefaultValue(uiConfiguration.getArtifactDefaultValue());
     }
 
 
