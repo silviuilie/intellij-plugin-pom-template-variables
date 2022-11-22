@@ -41,6 +41,8 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
                 uiConfiguration.getVersion().equals(persistedConfiguration.getState().getVersion())
                         &&
                 uiConfiguration.getName().equals(persistedConfiguration.getState().getName())
+                        &&
+                uiConfiguration.getName().equals(persistedConfiguration.getState().getName())
         );
     }
 
