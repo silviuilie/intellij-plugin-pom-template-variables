@@ -28,7 +28,7 @@ public class ProjectModelTemplateVariablesData implements PersistentStateCompone
     private String version = DEFAULT_VERSION_VAR_NAME;
     private String versionDefaultValue = DEFAULT_VALUE;
     private String name = DEFAULT_ARTIFACT_VAR_NAME;
-    private String nameDefaultValue = DEFAULT_VALUE;
+    private String artifactNameDefaultValue = DEFAULT_VALUE;
 
     public ProjectModelTemplateVariablesData() {
         //
@@ -72,11 +72,11 @@ public class ProjectModelTemplateVariablesData implements PersistentStateCompone
         this.versionDefaultValue = versionDefaultValue;
     }
 
-    public String getNameDefaultValue() {
-        return nameDefaultValue;
+    public String getArtifactNameDefaultValue() {
+        return artifactNameDefaultValue;
     }
 
-    public void setNameDefaultValue(String nameDefaultValue) {
-        this.nameDefaultValue = nameDefaultValue;
+    public void setArtifactNameDefaultValue(String artifactNameDefaultValue) {
+        this.artifactNameDefaultValue = artifactNameDefaultValue;
     }
 }

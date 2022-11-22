@@ -39,14 +39,12 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
  **/
 public class ProjectModelPropertiesProvider implements DefaultTemplatePropertiesProvider {
 
-    private static final String UNKNOWN_VALUE = "unknown";
-
 
     ProjectModelTemplateVariablesData defaultTemplateVariables = null;
 
     class SimpleProjectDescriptor {
-        private String candidateVersion = UNKNOWN_VALUE;
-        private String candidateModuleName = UNKNOWN_VALUE;
+        private String candidateVersion = defaultTemplateVariables.getVersionDefaultValue();
+        private String candidateModuleName = defaultTemplateVariables.getArtifactNameDefaultValue();
 
         public SimpleProjectDescriptor() {
             //
@@ -108,7 +106,7 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
             }
         }
 
-        if (!errNotified && isNotEmpty(pomVirtualFiles) && simpleProjectDescriptor.getCandidateVersion().equals(UNKNOWN_VALUE)) {
+        if (!errNotified && isNotEmpty(pomVirtualFiles) && simpleProjectDescriptor.getCandidateVersion().equals(defaultTemplateVariables.getVersionDefaultValue())) {
             ErrorNotifier.notifyError(project, "version not identified.");
         }
 
@@ -175,10 +173,10 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
 
                     if (domFileElement != null) {
                         ProjectModelRoot projectModelRoot = (ProjectModelRoot) domFileElement.getRootElement();
-                        simpleProjectDescriptor.setCandidateVersion(projectModelRoot.getVersion() != null ? projectModelRoot.getVersion().getValue() : UNKNOWN_VALUE);
+                        simpleProjectDescriptor.setCandidateVersion(projectModelRoot.getVersion() != null ? projectModelRoot.getVersion().getValue() : defaultTemplateVariables.getVersionDefaultValue());
                         simpleProjectDescriptor.setCandidateModuleName(ProjectFileIndex.SERVICE.getInstance(project).getModuleForFile(vfile).getName());
 
-                        if (!simpleProjectDescriptor.getCandidateVersion().equals(UNKNOWN_VALUE)) {
+                        if (!simpleProjectDescriptor.getCandidateVersion().equals(defaultTemplateVariables.getVersionDefaultValue())) {
                             break;
                         }
 
