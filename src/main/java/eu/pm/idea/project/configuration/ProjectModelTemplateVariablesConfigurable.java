@@ -43,8 +43,6 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
                 uiConfiguration.getName().equals(persistedConfiguration.getState().getName())
                         &&
                 uiConfiguration.getArtifactDefaultValue().equals(persistedConfiguration.getState().getArtifactNameDefaultValue())
-                        &&
-                uiConfiguration.getVersionDefaultValue().equals(persistedConfiguration.getState().getVersionDefaultValue())
         );
     }
 
@@ -55,7 +53,6 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
         uiConfiguration.setName(persistedConfiguration.getName());
 
         uiConfiguration.setArtifactDefaultValue(persistedConfiguration.getArtifactNameDefaultValue());
-        uiConfiguration.setVersionDefaultValue(persistedConfiguration.getVersionDefaultValue());
     }
 
     @Override
@@ -65,7 +62,6 @@ public class ProjectModelTemplateVariablesConfigurable implements Configurable.N
         persistedConfiguration.setVersion(uiConfiguration.getVersion());
         persistedConfiguration.setName(uiConfiguration.getName());
 
-        persistedConfiguration.setVersionDefaultValue(uiConfiguration.getVersionDefaultValue());
         persistedConfiguration.setArtifactNameDefaultValue(uiConfiguration.getArtifactDefaultValue());
     }
 

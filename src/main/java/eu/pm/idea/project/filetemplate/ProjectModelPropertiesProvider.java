@@ -81,6 +81,8 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
         defaultTemplateVariables = ProjectModelTemplateVariablesData.getInstance();
 
         final Project project = psiDirectory.getProject();
+        defaultTemplateVariables.setArtifactNameDefaultValue(project.getName());
+
         DomManager domManager = DomManager.getDomManager(project);
 
         setVersion(psiDirectory, properties, project, domManager);
