@@ -26,6 +26,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
       - intellijExtension at https://raw.githubusercontent.com/JetBrains/gradle-intellij-plugin/51ac90da2ede0c02bcadb42c03b156f61fdfe1b1/src/main/kotlin/org/jetbrains/intellij/IntelliJPlugin.kt
       - /ideaIC-2021.2/plugins/gradle-java/lib/gradle-java.jar!/META-INF/plugin.xml 
 - ~~arfitact name defaults to Module.getName()~~  
+- ~~2022.1.4~~
 
 
 
