@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.5.2"
+    id("org.jetbrains.intellij") version "1.10.1"
 }
 
 group = "eu.pm"
@@ -12,11 +12,10 @@ repositories {
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
-    version.set("2021.2")
+    version.set("2022.1.4")
     type.set("IC") // Target IDE Platform
 
     plugins.set(listOf("org.jetbrains.plugins.gradle"/*"org.jetbrains.idea.maven.model"*//* Plugin Dependencies */))
-
 }
 
 dependencies {
@@ -31,8 +30,8 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("212")
-        untilBuild.set("222.*")
+        sinceBuild.set("221")
+        untilBuild.set("231.*")
     }
 
     signPlugin {
