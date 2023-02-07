@@ -130,8 +130,6 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
             throw new PluginException("is gradle plugin enabled?", Plugin.id());
         }
 
-        System.out.println("gradlePlugin = " + gradlePlugin);
-
         // check for properties and common naming
         for (VirtualFile vfile : gradlePropertiesVFs) {
             try {
@@ -172,7 +170,6 @@ public class ProjectModelPropertiesProvider implements DefaultTemplateProperties
 
                     XmlFile asXMLFile = (XmlFile) psiFile;
                     DomFileElement domFileElement = domManager.getFileElement(asXMLFile, ProjectModelRoot.class);
-                    //   DomFileElement domFileElement = domManager.getFileElement(asXMLFile);
 
                     if (domFileElement != null) {
                         ProjectModelRoot projectModelRoot = (ProjectModelRoot) domFileElement.getRootElement();

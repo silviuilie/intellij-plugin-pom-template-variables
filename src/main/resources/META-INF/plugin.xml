@@ -39,7 +39,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <defaultTemplatePropertiesProvider implementation="eu.pm.idea.project.filetemplate.ProjectModelPropertiesProvider"/>
 
-        <dom.fileMetaData implementation="eu.pm.idea.project.maven.ProjectModelDomFileDescription" rootTagName="project"/>
+        <dom.fileMetaData implementation="eu.pm.idea.project.maven.ProjectModelDomFileDescription" order="first"  rootTagName="project"/>
 
         <projectConfigurable instance="eu.pm.idea.project.configuration.ProjectModelTemplateVariablesConfigurable"
                              key="plugin.name"/>

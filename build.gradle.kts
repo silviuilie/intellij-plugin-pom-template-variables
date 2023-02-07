@@ -15,12 +15,19 @@ intellij {
     version.set("2022.1.4")
     type.set("IC") // Target IDE Platform
 
-    plugins.set(listOf("org.jetbrains.plugins.gradle"/*"org.jetbrains.idea.maven.model"*//* Plugin Dependencies */))
+    plugins.set(
+        listOf(
+            "org.jetbrains.plugins.gradle",
+            "org.jetbrains.idea.maven.model"/*"org.jetbrains.idea.maven.model"*//* Plugin Dependencies */
+        )
+    )
 }
 
 dependencies {
-    implementation("org.apache.commons:commons-text:1.9")
+    implementation("org.apache.commons:commons-text:1.10.0")
+//    implementation("org.jetbrains".?)
 }
+
 tasks {
 
     // Set the JVM compatibility versions
