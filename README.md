@@ -16,8 +16,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 
 
 ###### TODOs 
-- multimodule support;
-    - find version of the parent;  
+- multimodule 
 - gradle 
     - load gradle properties (if any) **TODO** : remove
     - load gradle **TODO** : see 
