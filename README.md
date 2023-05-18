@@ -26,7 +26,7 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 
 
 
-###### refs: 
+###### ref: 
 - **[File Template Variables IDEA plugin](https://github.com/vkravets/FileTemplatesVariable) by Vladimir Kravets**
 - [XML DOM API](https://plugins.jetbrains.com/docs/intellij/xml-dom-api.html?from=jetbrains.org)
 - [Plugin Configuration File](https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html)
