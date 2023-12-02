@@ -35,16 +35,14 @@ IntelliJ IDEA plugin that exposes project build data (version/artifactId) as fil
 
 ###### issues 
  
-1. load pom as MavenDomProjectModel instead of POMProject
+1. load pom as MavenDomProjectModel instead of POMProject https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/1
 <!--2.  / how to load MavenDomProjectModel? -->
 
-https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/1
 
-
-2. use org.jetbrains.idea.maven.dom.model.MavenDomProjectModel  
+2. use org.jetbrains.idea.maven.dom.model.MavenDomProjectModel https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/2 
 (see `eu.pm.idea.project.maven.ProjectModelDomFileDescription`) 
 
-https://github.com/silviuilie/intellij-plugin-pom-template-variables/issues/2
+
 
  
 
