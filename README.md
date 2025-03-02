@@ -3,6 +3,7 @@
 
 
 
+###### TODO fix for latest (> 2024.*)
 
 IntelliJ IDEA plugin that exposes project build data (version/artifactId) as file template variables
 
